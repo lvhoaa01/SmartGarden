@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SmartGarden - Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body class="bg-gray-50 min-h-screen font-sans text-gray-800">
+
+    <!-- ═══ TOP BAR ═══ -->
+    <header class="bg-white border-b border-gray-200 px-6 py-4 flex items-center justify-between">
+        <h1 class="text-2xl font-bold text-blue-600">🌱 SmartGarden</h1>
+        <div class="flex items-center gap-4">
+            <select id="nodeSelect" class="border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400">
+                <option value="1">Node 1</option>
+            </select>
+            <span id="statusBadge" class="px-3 py-1 rounded-full text-xs font-bold bg-gray-200 text-gray-600">OFFLINE</span>
+            <div class="flex items-center gap-2">
+                <label class="text-sm font-semibold">Mode:</label>
+                <button id="btnMode" class="px-4 py-2 rounded-lg text-sm font-bold bg-green-500 text-white">TỰ ĐỘNG</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- ═══ MAIN GRID ═══ -->
+    <main class="max-w-7xl mx-auto p-6 grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+        <!-- ── COL 1: Camera + Timer ── -->
+        <div class="space-y-6">
+            <div class="bg-white rounded-xl border border-gray-200 p-4">
+                <h2 class="text-xs font-bold text-gray-500 uppercase tracking-wide mb-3">Camera giám sát</h2>
+                <div id="cameraBox" class="w-full aspect-[4/3] bg-gray-100 rounded-lg border-2 border-dashed border-gray-300 flex items-center justify-center overflow-hidden">
+                    <img id="cameraImg" class="hidden w-full h-full object-cover rounded-lg" alt="Camera" />
+                    <span id="cameraPlaceholder" class="text-gray-400 text-sm">Chưa có ảnh</span>
+                </div>
+            </div>
+            <div class="bg-white rounded-xl border border-gray-200 p-4 text-center">
+                <h2 class="text-xs font-bold text-gray-500 uppercase tracking-wide mb-2">Trạng thái kết nối</h2>
+                <p id="wsStatus" class="text-lg font-bold text-gray-400">Đang kết nối...</p>
+            </div>
+        </div>
+
+        <!-- ── COL 2: Sensor Cards ── -->
+        <div class="space-y-4">
+            <h2 class="text-xs font-bold text-gray-500 uppercase tracking-wide">Thông số môi trường</h2>
+
+            <div class="bg-white rounded-xl border border-gray-200 p-5 flex items-center justify-between">
+                <div><p class="text-sm text-gray-500">Nhiệt độ</p><p id="valTemp" class="text-3xl font-bold text-red-500">-- °C</p></div>
+                <span class="text-4xl">🌡️</span>
+            </div>
+            <div class="bg-white rounded-xl border border-gray-200 p-5 flex items-center justify-between">
+                <div><p class="text-sm text-gray-500">Độ ẩm không khí</p><p id="valHum" class="text-3xl font-bold text-blue-500">-- %</p></div>
+                <span class="text-4xl">💧</span>
+            </div>
+            <div class="bg-white rounded-xl border border-gray-200 p-5">
+                <div class="flex items-center justify-between mb-2">
+                    <p class="text-sm text-gray-500">Độ ẩm đất</p><span class="text-4xl">🌱</span>
+                </div>
+                <div class="w-full bg-gray-200 rounded-full h-6 overflow-hidden">
+                    <div id="barSoil" class="bg-green-500 h-6 rounded-full transition-all duration-500 flex items-center justify-center text-xs text-white font-bold" style="width: 0%">0%</div>
+                </div>
+            </div>
+            <div class="bg-white rounded-xl border border-gray-200 p-5 flex items-center justify-between">
+                <div><p class="text-sm text-gray-500">Ánh sáng</p><p id="valLight" class="text-3xl font-bold text-yellow-500">-- Lux</p></div>
+                <span class="text-4xl">☀️</span>
+            </div>
+        </div>
+
+        <!-- ── COL 3: AI Reasoning + Device Controls ── -->
+        <div class="space-y-6">
+            <div class="bg-white rounded-xl border border-gray-200 p-4 flex-1">
+                <h2 class="text-xs font-bold text-gray-500 uppercase tracking-wide mb-3">AI Qwen VLM — Suy luận</h2>
+                <div id="aiLog" class="h-48 overflow-y-auto bg-gray-50 rounded-lg p-3 text-sm text-gray-600 border border-gray-200 space-y-2">
+                    <p class="text-gray-400 italic">Chờ dữ liệu từ Edge Node...</p>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-xl border border-gray-200 p-4">
+                <h2 class="text-xs font-bold text-gray-500 uppercase tracking-wide mb-3">Điều khiển thiết bị</h2>
+                <div class="space-y-3">
+                    <button id="btnPump" data-device="pump" class="device-btn w-full py-3 rounded-lg font-bold text-white bg-gray-400 transition-colors">💦 BƠM NƯỚC: TẮT</button>
+                    <button id="btnFan" data-device="fan" class="device-btn w-full py-3 rounded-lg font-bold text-white bg-gray-400 transition-colors">🌀 QUẠT GIÓ: TẮT</button>
+                    <button id="btnLight" data-device="light" class="device-btn w-full py-3 rounded-lg font-bold text-white bg-gray-400 transition-colors">💡 ĐÈN: TẮT</button>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <script src="/static/app.js"></script>
+</body>
+</html>

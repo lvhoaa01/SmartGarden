@@ -1,0 +1,19 @@
+/* style.css — SmartGarden Light Theme overrides */
+body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+}
+
+.device-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+#aiLog p {
+    margin: 0;
+    padding: 4px 0;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+#aiLog p:last-child {
+    border-bottom: none;
+}

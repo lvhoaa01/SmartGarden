@@ -1,0 +1,25 @@
+# ═══════════════════════════════════════════
+# SmartGarden — Requirements
+# ═══════════════════════════════════════════
+
+# ── Server (Backend) ──
+fastapi>=0.110.0
+uvicorn[standard]>=0.27.0
+pyodbc>=5.1.0
+python-multipart>=0.0.9
+llama-cpp-python>=0.2.50
+
+# ── Desktop UI ──
+PyQt5>=5.15.0
+websocket-client>=1.7.0
+requests>=2.31.0
+
+# ── Edge Node (Laptop mock) ──
+Pillow>=10.0.0
+
+# ── Edge Node (Raspberry Pi only — uncomment khi deploy) ──
+# adafruit-circuitpython-dht
+# adafruit-circuitpython-ads1x15
+# smbus2
+# RPi.GPIO
+# opencv-python-headless
