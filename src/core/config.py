@@ -1,9 +1,34 @@
 import os
+from pathlib import Path
+from dataclasses import dataclass, field
 
-SERVER = r'DAIKAHOAAAA\MSSQLSERVER01'
-DATABASE = 'SmartGarden_Core'
-CONN_STR = f"DRIVER={{ODBC Driver 17 for SQL Server}};SERVER={SERVER};DATABASE={DATABASE};Trusted_Connection=yes"
+PROJECT_ROOT = Path(__file__).parent.parent.parent
 
-CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
-MODEL_PATH = os.path.normpath(os.path.join(CURRENT_DIR, "..", "..", "AI_Models", "qwen_vlm.gguf"))
-CLIP_PATH = os.path.normpath(os.path.join(CURRENT_DIR, "..", "..", "AI_Models", "mmproj.gguf"))
+@dataclass
+class DatabaseConfig:
+    server: str = r"DAIKAHOAAAA\MSSQLSERVER01"
+    database: str = "SmartGarden_Core"
+    
+    @property
+    def connection_string(self) -> str:
+        return f"DRIVER={{ODBC Driver 17 for SQL Server}};SERVER={self.server};DATABASE={self.database};Trusted_Connection=yes"
+
+@dataclass
+class ModelPaths:
+    vlm_model: str = "AI_Models/qwen_vlm.gguf"
+    clip_model: str = "AI_Models/mmproj.gguf"
+    
+    def get_vlm_path(self) -> str:
+        return str(PROJECT_ROOT / self.vlm_model)
+        
+    def get_clip_path(self) -> str:
+        return str(PROJECT_ROOT / self.clip_model)
+
+@dataclass
+class Config:
+    db: DatabaseConfig = field(default_factory=DatabaseConfig)
+    models: ModelPaths = field(default_factory=ModelPaths)
+    host: str = "0.0.0.0"
+    port: int = 8000
+
+config = Config()

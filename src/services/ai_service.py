@@ -56,3 +56,5 @@ def analyze_environment_and_image(temperature: float, humidity: float, avg_soil:
     action_code = parse_vlm_action(ai_text)
     
     return ai_text, action_code
+
+    #Propmt engineering: Khiến cho đầu ra trả về là 1 file json có 2 trường: "reasoning" và "action_code". Trong đó "reasoning" là phần giải thích của AI về tình trạng cây trồng dựa trên dữ liệu cảm biến và hình ảnh. "action_code" là mã số hành động mà AI đề xuất (1: bật bơm, 2: bật quạt, 3: bật bơm + quạt, 5: bật đèn).
